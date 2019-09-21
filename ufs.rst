@@ -47,17 +47,17 @@ RMC临界计算中采用源迭代方法，每代计算中都需保持中子的�
 
 采用UFS方法后，从裂变库中每抽样1个裂变中子，会定位该粒子所在的UFS网格位置，得到相应区域的\ :math:`\frac{V_{k}}{S_{k}}`\ ，则抽样粒子的权重变为：
 
-.. math:: \omega_{\text{in}}^{'} = \frac{N_{\text{hist}}}{N_{\text{bank}}} \bullet \frac{S_{k}}{V_{k}}
+.. math:: \omega_{\text{in}}^{'} = \frac{N_{\text{hist}}}{N_{\text{bank}}} \times \frac{S_{k}}{V_{k}}
 
 为保证统计的无偏性，当\ :math:`\frac{V_{k}}{S_{k}} < 1`\ 时，对粒子进行轮盘赌：粒子存活概率为：\ :math:`P_{\text{sur}} = \frac{V_{k}}{S_{k}}`\ ，粒子被杀死的概率为\ :math:`P_{\text{kill}} = 1 - \frac{V_{k}}{S_{k}}`\ ，因此粒子的实际权重为：
 
-.. math:: \omega_{\text{neut}} = 0 \times P_{\text{kill}} + \frac{N_{\text{hist}}}{N_{\text{bank}}} \bullet \frac{S_{k}}{V_{k}} \times P_{\text{sur}} = \frac{N_{\text{hist}}}{N_{\text{bank}}}
+.. math:: \omega_{\text{neut}} = 0 \times P_{\text{kill}} + \frac{N_{\text{hist}}}{N_{\text{bank}}} \times \frac{S_{k}}{V_{k}} \times P_{\text{sur}} = \frac{N_{\text{hist}}}{N_{\text{bank}}}
 
 当\ :math:`\frac{V_{k}}{S_{k}} > 1`\ 时，则分裂该粒子，并以\ :math:`\frac{V_{k}}{S_{k}} - \left\lfloor \frac{V_{k}}{S_{k}} \right\rfloor`\ 的概率（\ :math:`\left\lfloor \right\rfloor`\ 为向下取整符号）的得到\ :math:`\left\lfloor \frac{V_{k}}{S_{k}} \right\rfloor + 1`\ 个抽样粒子，以\ :math:`1 - (\frac{V_{k}}{S_{k}} - \left\lfloor \frac{V_{k}}{S_{k}} \right\rfloor)`\ 的概率得到\ :math:`\left\lfloor \frac{V_{k}}{S_{k}} \right\rfloor`\ 个抽样粒子，此时该粒子的实际权重为：
 
-.. math:: \omega_{\text{neut}} = \left\{ \left\lbrack 1 - (\frac{V_{k}}{S_{k}} - \left\lfloor \frac{V_{k}}{S_{k}} \right\rfloor) \right\rbrack \times \left\lfloor \frac{V_{k}}{S_{k}} \right\rfloor + (\frac{V_{k}}{S_{k}} - \left\lfloor \frac{V_{k}}{S_{k}} \right\rfloor) \times \left( \left\lfloor \frac{V_{k}}{S_{k}} \right\rfloor + 1 \right) \right\} \times \frac{N_{\text{hist}}}{N_{\text{bank}}} \bullet \frac{S_{k}}{V_{k}} = \frac{N_{\text{hist}}}{N_{\text{bank}}}
+.. math:: \omega_{\text{neut}} = \left\{ \left\lbrack 1 - (\frac{V_{k}}{S_{k}} - \left\lfloor \frac{V_{k}}{S_{k}} \right\rfloor) \right\rbrack \times \left\lfloor \frac{V_{k}}{S_{k}} \right\rfloor + (\frac{V_{k}}{S_{k}} - \left\lfloor \frac{V_{k}}{S_{k}} \right\rfloor) \times \left( \left\lfloor \frac{V_{k}}{S_{k}} \right\rfloor + 1 \right) \right\} \times \frac{N_{\text{hist}}}{N_{\text{bank}}} \times \frac{S_{k}}{V_{k}} = \frac{N_{\text{hist}}}{N_{\text{bank}}}
 
-式(5)、(6)表明，采用这样的处理方式并未改变每代裂变中子的总权重，但有效地改变了源中子的分布，使其分布趋于均匀，一方面减少了高中子注量率网格的源中子，又增加了低中子注量率网格的源中子，总体并不会增加额外计算时间。
+上式表明，采用这样的处理方式并未改变每代裂变中子的总权重，但有效地改变了源中子的分布，使其分布趋于均匀，一方面减少了高中子注量率网格的源中子，又增加了低中子注量率网格的源中子，总体并不会增加额外计算时间。
 
 4、UFS方法应用技巧
 ==================
